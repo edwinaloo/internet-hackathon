@@ -1,0 +1,13 @@
+{
+    "canisters": {
+        "azle_voting_app": {
+            "type": "custom",
+            "main": "src/index.ts",
+            "candid": "src/index.did",
+            "build": "npx azle azle_voting_app",
+            "wasm": ".azle/azle_voting_app/azle_voting_app.wasm",
+            "gzip": true
+        }
+    }
+}
+
