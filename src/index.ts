@@ -1,16 +1,9 @@
 // Import necessary libraries
 import * as express from 'express';
-import { CosmosClient } from '@azure/cosmos';
-import { Container } from '@azure/cosmos';
 
 // Create an Express application
 const app = express();
 const port = 3000; // Change this to your desired port
-
-// Replace these with your Azure Cosmos DB details
-const endpoint = 'YOUR_COSMOS_DB_ENDPOINT';
-const key = 'YOUR_COSMOS_DB_KEY';
-const client = new CosmosClient({ endpoint, key });
 
 // Define a model for voting data
 interface Vote {
@@ -19,41 +12,38 @@ interface Vote {
   votes: number;
 }
 
-// Initialize Cosmos DB container and database
-const databaseId = 'votingdb';
-const containerId = 'votes';
-
-const init = async () => {
-  const { database } = await client.databases.createIfNotExists({ id: databaseId });
-  const { container } = await database.containers.createIfNotExists({ id: containerId });
-};
-
-init().catch((err) => console.error(err));
-
 // Middleware for parsing JSON in requests
 app.use(express.json());
 
 // Create a new vote
-app.post('/votes', async (req, res) => {
+app.post('/votes', (req, res) => {
   try {
     const vote: Vote = req.body;
 
-    // Add validation and error handling here
+    // Add your validation and error handling here
 
-    const { container } = client.database(databaseId).container(containerId);
-    const { resource } = await container.items.create(vote);
-    res.status(201).json(resource);
+    // For demonstration purposes, we'll assume you have a mock database here.
+    // You can replace this with your actual database logic.
+    const mockDatabase: Vote[] = [];
+
+    // Add the new vote to the database
+    mockDatabase.push(vote);
+
+    res.status(201).json(vote); // Return the created vote
   } catch (error) {
     res.status(500).send(error);
   }
 });
 
 // Get all votes
-app.get('/votes', async (req, res) => {
+app.get('/votes', (req, res) => {
   try {
-    const { container } = client.database(databaseId).container(containerId);
-    const { resources: votes } = await container.items.readAll().fetchAll();
-    res.json(votes);
+    // For demonstration purposes, we'll assume you have a mock database here.
+    // You can replace this with your actual database logic.
+    const mockDatabase: Vote[] = [];
+
+    // Return all votes from the database
+    res.json(mockDatabase);
   } catch (error) {
     res.status(500).send(error);
   }
