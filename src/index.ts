@@ -12,6 +12,8 @@ interface Vote {
   votes: number;
 }
 
+// new commit
+
 // Middleware for parsing JSON in requests
 app.use(express.json());
 
